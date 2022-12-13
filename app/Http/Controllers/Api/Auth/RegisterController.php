@@ -12,10 +12,11 @@ class RegisterController extends ApiController
 {
 
     private $rules = [
-        'username' => 'required',
+        'username' => 'required|regex:/^\S*$/u',
         'email' => 'email|unique:users,email',
-        'phone' => 'unique:users,mobile',
-        'password' => 'required'
+        'phone' => 'numeric|unique:users,phone',
+        'password' => 'required',
+        'dob' => 'required'
     ];
 
 
@@ -35,10 +36,8 @@ class RegisterController extends ApiController
                 $errors = $validator->errors()->toArray();
                 return _api_json(new \stdClass(), ['errors' => $errors], 400);
             }
-            DB::beginTransaction();
             $user = $this->userRepository->register($request);
             $tokenDetails = $this->userRepository->issueToken($user);
-            DB::commit();
             $message = _lang('app.all_is_cool_welcome');
             return _api_json(
                 $user->profileTransform(),
@@ -49,7 +48,7 @@ class RegisterController extends ApiController
                 ]
             );
         } catch (\Exception $ex) {
-            DB::rollback();
+            dd($ex);
             $message = _lang('app.something_went_wrong');
             return _api_json(new \stdClass(), ['message' => $message], 400);
         }

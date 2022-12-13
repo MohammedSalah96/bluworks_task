@@ -16,7 +16,7 @@ class User extends Authenticatable
         'username' => 'string',
         'email' => 'string',
         'phone' => 'string',
-        'dob' => 'integer',
+        'dob' => 'string',
         'active' => 'boolean',
     ];
 
@@ -25,7 +25,7 @@ class User extends Authenticatable
         $transformer = new \stdClass();
         $transformer->id = $this->id;
         $transformer->username = $this->username;
-        $transformer->email = $this->email;
+        $transformer->email = $this->email ?: "";
         $transformer->phone = $this->phone ?: "";
         $transformer->dob = $this->dob ?: "";
         $transformer->active = $this->active;
@@ -37,7 +37,7 @@ class User extends Authenticatable
     {
         $transformer = new \stdClass();
         $transformer->username = $this->username;
-        $transformer->email = $this->email;
+        $transformer->email = $this->email ?: "";
         $transformer->phone = $this->phone ?: "";
         $transformer->dob = $this->dob ?: "";
 

@@ -12,13 +12,7 @@ class Kernel extends ConsoleKernel
      *
      * @var array
      */
-    protected $commands = [
-        Commands\InstallmentReminder::class,
-        Commands\InsuranceReminder::class,
-        Commands\LicenseReminder::class,
-        Commands\InspectionVisitReminder::class,
-        Commands\SigningVisitReminder::class
-    ];
+    protected $commands = [];
 
     /**
      * Define the application's command schedule.
@@ -27,18 +21,7 @@ class Kernel extends ConsoleKernel
      * @return void
      */
     protected function schedule(Schedule $schedule)
-    {
-        $schedule->command('remind:installment')
-            ->everyMinute();
-        $schedule->command('remind:insurance')
-            ->everyMinute();
-        $schedule->command('remind:license')
-            ->everyMinute();
-        $schedule->command('remind:inspection_visit')
-            ->everyMinute();
-        $schedule->command('remind:signing_visit')
-            ->everyMinute();
-    }
+    { }
 
     /**
      * Get the timezone that should be used by default for scheduled events.
@@ -46,9 +29,7 @@ class Kernel extends ConsoleKernel
      * @return \DateTimeZone|string|null
      */
     protected function scheduleTimezone()
-    {
-
-    }
+    { }
 
     /**
      * Register the Closure based commands for the application.

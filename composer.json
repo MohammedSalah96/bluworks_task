@@ -20,13 +20,7 @@
         "laravel/ui": "^2.0",
         "lcobucci/jwt": "3.3.3",
         "pusher/pusher-php-server": "~3.0",
-        "socialiteproviders/apple": "^4.1.0",
-        "socialiteproviders/facebook": "^4.1.0",
-        "socialiteproviders/google": "^4.1.0",
-        "socialiteproviders/manager": "~4.0",
-        "symfony/translation-contracts": "^2.3.0",
-        "twilio/sdk": "^6.24",
-        "unisharp/laravel-filemanager": "~1.8"
+        "symfony/translation-contracts": "^2.3.0"
     },
     "require-dev": {
         "composer/composer": "^1.9",

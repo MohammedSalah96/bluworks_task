@@ -1,0 +1,369 @@
+{
+	"info": {
+		"_postman_id": "ab3525be-efdf-41cb-bb60-ad35d91056c7",
+		"name": "BluWorks",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4053836"
+	},
+	"item": [
+		{
+			"name": "Part One",
+			"item": [
+				{
+					"name": "1- Count Except",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/count_except?start=1&end=9&except=5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"count_except"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "1"
+								},
+								{
+									"key": "end",
+									"value": "9"
+								},
+								{
+									"key": "except",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2- String Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/string_index?input_string=BFG",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"string_index"
+							],
+							"query": [
+								{
+									"key": "input_string",
+									"value": "BFG"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3- Minimum Steps to Zero",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/minmum_down_to_zero?n=2&q=[3, 4]",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"minmum_down_to_zero"
+							],
+							"query": [
+								{
+									"key": "n",
+									"value": "2"
+								},
+								{
+									"key": "q",
+									"value": "[3, 4]"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Part Two",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Register",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "lang",
+										"value": "en",
+										"type": "text"
+									},
+									{
+										"key": "source",
+										"value": "website",
+										"description": "website or mobile (optional for mobile)",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "MohammedMahmoud",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "mohammed.salahdewe@gmail.com",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "phone",
+											"value": "01097268161",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "12345678",
+											"type": "text"
+										},
+										{
+											"key": "dob",
+											"value": "1996-01-28",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/register",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "lang",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "Mohammed Salah",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "12345678",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "Update",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "lang",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "_method",
+											"value": "PUT",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "mohamedahmed",
+											"description": "optional",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "email",
+											"value": "ahmed@user.com",
+											"description": "optional",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "12345678",
+											"description": "optional",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "phone",
+											"value": "01127259519",
+											"description": "optional",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "active",
+											"value": "1",
+											"description": "0 => fasle , 1 =>true optional",
+											"type": "text"
+										},
+										{
+											"key": "dob",
+											"value": "1996-01-29",
+											"description": "optional",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/users/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "lang",
+										"value": "ar",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/users/4",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "lang",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/users/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}/users?page=1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "search",
+											"value": "MohammedAhmed",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

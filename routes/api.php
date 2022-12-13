@@ -17,6 +17,13 @@ Route::group(['namespace' => 'Api'], function () {
 
   Route::resource('users', 'UsersController');
 
+  Route::get('count_except', 'ProblemsController@getCountExcept');
+  Route::get('string_index', 'ProblemsController@getStringIndex');
+  Route::get('minmum_down_to_zero', 'ProblemsController@getMinmumStepsToZero');
+
+
+
+
   Route::group(['middleware' => 'jwt.auth:user'], function () {
 
     Route::get('profile', 'UserController@getUser');

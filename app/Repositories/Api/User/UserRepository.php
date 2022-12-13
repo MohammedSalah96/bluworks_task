@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Repositories\Api\User;
 
@@ -8,39 +8,30 @@ use Illuminate\Http\Request;
 use App\Repositories\Api\BaseRepository;
 use App\Repositories\Api\BaseRepositoryInterface;
 
-class UserRepository extends BaseRepository implements BaseRepositoryInterface, UserRepositoryInterface{
-    
+class UserRepository extends BaseRepository implements BaseRepositoryInterface, UserRepositoryInterface
+{
+
     private $user;
-    public $types;
-    
+
     public function __construct(User $user)
     {
         Parent::__construct();
         $this->user = $user;
-        $this->types = $this->user->types;
     }
 
     public function userProfile()
     {
-       return $this->user->join('location_translations', function($query){
-            $query->on('users.city_id','=', 'location_translations.location_id')
-            ->where('locale', $this->langCode);
-       })
-       ->where('users.id', $this->authUser()->id)
-       ->select('users.*', 'location_translations.name as city')
-       ->first();
+        return $this->authUser()->profileTransform();
     }
 
     public function register(Request $request)
     {
         $user = new $this->user;
-        $user->name = $request->input('name');
+        $user->username = $request->input('username');
         $user->email = $request->input('email');
-        $user->mobile = $request->input('mobile');
+        $user->phone = $request->input('phone');
         $user->password = bcrypt($request->input('password'));
-        $user->city_id = $request->input('city');
-        $user->image = 'default.png';
-       
+        $user->dob = $request->input('dob');
         $user->save();
         return $user;
     }
@@ -67,29 +58,19 @@ class UserRepository extends BaseRepository implements BaseRepositoryInterface, 
         ];
     }
 
-    public function canPost()
-    {
-        return $this->authUser()->transform()->allowed_to_post;
-    }
-
     public function authUserCheck()
     {
-        $user = $this->user->where('users.active', true)
-                    ->where('users.id', $this->authUser()->id)
-                    ->first();
+        $user = $this->user->where('active', true)
+            ->where('id', $this->authUser()->id)
+            ->first();
 
         return $user ?: false;
     }
 
     public function checkAuth($credentials)
     {
-        if (is_numeric($credentials['username'])) {
-            $field = 'mobile';
-        } elseif (filter_var($credentials['username'], FILTER_VALIDATE_EMAIL)) {
-            $field = 'email';
-        }
         $user = $this->user->where('active', true)
-            ->where($field, $credentials['username'])
+            ->where('username', $credentials['username'])
             ->first();
         if ($user) {
             if (password_verify($credentials['password'], $user->password)) {
@@ -99,14 +80,8 @@ class UserRepository extends BaseRepository implements BaseRepositoryInterface, 
         return false;
     }
 
-
-     public function checkUserForResest($mobile){
-         return $this->user->where('mobile',$mobile)
-                           ->where('active',true)
-                           ->first();
-     }
-
-    public function updatePassword($user, $password){
+    public function updatePassword($user, $password)
+    {
         $user->password = bcrypt($password);
         $user->save();
     }
@@ -114,33 +89,74 @@ class UserRepository extends BaseRepository implements BaseRepositoryInterface, 
     public function updateProfile(Request $request)
     {
         $user = $this->authUser();
-       
+
+        if ($request->input('username')) {
+            $user->username = $request->input('username');
+        }
+        if ($request->input('email')) {
+            $user->email = $request->input('email');
+        }
+        if ($request->input('phone')) {
+            $user->phone = $request->input('phone');
+        }
+        if ($request->input('dob')) {
+            $user->dob = $request->input('dob');
+        }
+
+        if ($request->input('new_password')) {
+            $user->password = bcrypt($request->input('new_password'));
+        }
+        $user->save();
+
+        return $user;
+    }
+
+
+    public function list(Request $request)
+    {
+        $users =  $this->user->select('users.*');
+        if ($request->input('search')) {
+            $users->whereRaw(handleKeywordWhere(['users.username', 'users.email', 'users.phone'], $request->input('search')));
+        }
+        return $users = $users->paginate($this->limit);
+    }
+
+    public function find($id, array $conditions = [])
+    {
+        if (!empty($conditions)) {
+            return $this->user->where($conditions)->where('id', $id)->first();
+        }
+        return $this->user->find($id);
+    }
+
+    public function update(Request $request, $id, $user)
+    {
         if ($request->input('name')) {
             $user->name = $request->input('name');
         }
         if ($request->input('email')) {
             $user->email = $request->input('email');
         }
-        if ($request->input('mobile')) {
-            $user->mobile = $request->input('mobile');
+        if ($request->input('phone')) {
+            $user->mobile = $request->input('phone');
         }
-        if ($request->input('city')) {
-            $user->city_id = $request->input('city');
+        if ($request->input('password')) {
+            $user->password = bcrypt($request->input('password'));
+        }
+        if ($request->has('active')) {
+            $user->active = $request->input('active');
+        }
+        if ($request->input('dob')) {
+            $user->dob = $request->input('dob');
         }
 
-        if ($request->input('new_password')) {
-            $user->password = bcrypt($request->input('new_password'));
-        }
-        if ($request->file('image')) {
-            if ($user->image != 'default.png') {
-                $user->deleteUploaded('users', $user->image);
-            }
-            $user->image = $this->user->upload($request->file('image'), 'users');
-        }
         $user->save();
-        
+
         return $user;
     }
 
-    
+    public function delete(Request $request, $id, $user)
+    {
+        return $user->delete();
+    }
 }

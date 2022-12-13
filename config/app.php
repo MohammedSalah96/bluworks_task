@@ -78,7 +78,7 @@ return [
     */
 
     'locale' => 'en',
-    'locales' => ['en' => 'english','ar' => 'arabic'],
+    'locales' => ['en' => 'english', 'ar' => 'arabic'],
 
     /*
     |--------------------------------------------------------------------------
@@ -177,9 +177,8 @@ return [
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\BackendRepositoriesServiceProvider::class,
         App\Providers\ApiRepositoriesServiceProvider::class,
-        
+
         App\Providers\HelperServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         //Laravel\Socialite\SocialiteServiceProvider::class,
@@ -233,14 +232,14 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        
-        
+
+
         'Permissions' => App\Helpers\Permissions::class,
         'Authorization' =>  App\Helpers\Authorization::class,
         'Fcm' => App\Helpers\Fcm::class,
         'Pusher'    => Pusher\Pusher::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Socialite' => Laravel\Socialite\Facades\Socialite::class        
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class
 
     ],
 
